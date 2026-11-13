@@ -18,6 +18,7 @@
     <a href="#quarterly" class="nav-link">▤ <span>분기 실적</span></a>
     <a href="#balance" class="nav-link">◈ <span>재무건전성</span></a>
     <a href="#accounts" class="nav-link">≡ <span>DART 원문 계정</span></a>
+    <a href="#disclosures" class="nav-link">▣ <span>전체 공시 아카이브</span></a>
     <div class="side-bottom"><div class="data-mark"><span class="pulse"></span> OpenDART · 공식 공시</div><p>소스: 금융감독원 전자공시시스템<br/>와이씨 · KOSDAQ 232140<br/>고유번호 01109539</p></div>
   </aside>
   <main>
@@ -28,6 +29,28 @@
      <div class="tools"><div class="toggle" aria-label="재무제표 구분"><button data-fs="CFS" class="selected">연결</button><button data-fs="OFS">별도</button></div><button class="action-btn" id="refreshBtn">↻ 새로고침</button></div>
     </section>
     <div class="notice" id="notice" role="status"><span class="notice-icon">●</span><div><strong>데이터 연결 확인 중</strong><p>DART에서 재무제표를 가져오고 있습니다.</p></div></div>
+
+    <section class="panel archive-panel" id="disclosures">
+      <div class="panel-header archive-top"><div><div class="section-kicker">COMPLETE DISCLOSURE INDEX</div><h2>와이씨 전체 공시 아카이브 <span>정정 포함 · 최신순</span></h2><p class="archive-caption">DART에 와이씨 고유번호로 등록된 공시를 기간·유형별로 조회합니다. 공시를 클릭하면 DART 원문과 텍스트 미리보기를 볼 수 있습니다.</p></div><div class="tag">DART 공식 접수번호 기준</div></div>
+      <form class="archive-controls" id="archiveForm">
+        <label>시작일 <input type="date" id="archiveStart" value="1999-01-01" required></label>
+        <label>종료일 <input type="date" id="archiveEnd" required></label>
+        <label>공시 유형 <select id="archiveType"><option value="ALL">전체 유형</option><option value="A">정기공시</option><option value="B">주요사항보고</option><option value="C">발행공시</option><option value="D">지분공시</option><option value="E">기타공시</option><option value="F">외부감사</option><option value="G">펀드공시</option><option value="H">자산유동화</option><option value="I">거래소공시</option><option value="J">공정위공시</option></select></label>
+        <button class="action-btn archive-search" id="archiveSearch" type="submit">⌕ 공시 조회</button>
+      </form>
+      <div class="archive-toolbar"><div><strong id="filingCount">공시 조회 대기</strong><div class="foot-note" id="archiveStatus">한 페이지 최대 100건 · 실제 접수된 공시만 표시</div></div><div class="archive-tools"><input id="archiveKeyword" placeholder="현재 페이지 제목 검색" aria-label="현재 페이지 제목 검색"><button class="download-btn" id="archiveCollect">전체 목록 수집 → JSON/CSV</button><button class="download-btn" id="archiveCancel" hidden>수집 중단</button></div></div>
+      <div class="archive-table-wrap table-wrap"><table class="filings-table" id="filingsTable"><thead><tr><th>접수일</th><th>구분</th><th>보고서명</th><th>제출인</th><th>원문</th></tr></thead><tbody id="filingsBody"><tr><td colspan="5">조회 중...</td></tr></tbody></table></div>
+      <div class="pagination"><button id="filingsPrev" class="action-btn" disabled>← 이전 100건</button><span id="filingsPage">—</span><button id="filingsNext" class="action-btn" disabled>다음 100건 →</button></div>
+      <div class="archive-limits">※ 전체 목록 수집은 <strong>공시 제목·접수일·접수번호 등 메타데이터</strong>를 다운로드합니다. 각 보고서 본문·재무주석·첨부서류 전체를 하나의 JSON에 저장하는 기능은 아닙니다. 정정공시를 포함하며, 실제 원본은 선택한 공시별로 조회합니다.</div>
+      <section class="document-reader" id="documentReader" hidden>
+        <div class="reader-head"><div><div class="section-kicker">SOURCE DOCUMENT</div><h3 id="readerTitle">공시 원문</h3><p id="readerMeta" class="archive-caption"></p></div><button class="action-btn" id="readerClose">닫기 ✕</button></div>
+        <div class="reader-actions"><a id="readerOfficial" target="_blank" rel="noopener noreferrer" class="download-btn primary">DART 원문·첨부 확인 ↗</a><button id="readerZip" class="download-btn">원문 ZIP 다운로드</button><button id="readerCopy" class="download-btn">현재 본문 복사</button><button id="readerTxt" class="download-btn">선택 파일 전체 TXT</button></div>
+        <p class="reader-note" id="readerNotice">원문을 불러오는 중입니다.</p>
+        <div class="reader-pages"><label>원문 구성 파일 <select id="readerPart"></select></label><span id="readerLength"></span></div>
+        <pre id="readerText" class="reader-text"></pre>
+        <div class="pagination"><button id="readerPrev" class="action-btn">← 이전 본문</button><span id="readerPage">—</span><button id="readerNext" class="action-btn">다음 본문 →</button></div>
+      </section>
+    </section>
     <div id="dashboard" hidden>
      <div class="section-intro"><div><span class="section-kicker">OVERVIEW</span><h2>핵심 재무 지표</h2></div><div id="baseLabel" class="base-label"></div></div>
      <div class="kpi-grid" id="kpis"></div>
@@ -45,5 +68,6 @@
   </main>
  </div>
  <script src="/app.js" defer></script>
+ <script src="/archive.js" defer></script>
 </body>
 </html>
