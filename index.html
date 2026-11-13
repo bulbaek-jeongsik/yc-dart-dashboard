@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+ <meta charset="utf-8"/>
+ <meta name="viewport" content="width=device-width,initial-scale=1"/>
+ <meta name="theme-color" content="#111d30"/>
+ <title>YC Financial Research | OpenDART</title>
+ <meta name="description" content="와이씨(232140) OpenDART 기반 재무제표 분석 대시보드"/>
+ <link rel="stylesheet" href="/style.css"/>
+</head>
+<body>
+ <div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-icon">Y<span>C</span></div><div class="brand-title">RESEARCH <small>FINANCIAL INTELLIGENCE</small></div></div>
+    <div class="side-label">WORKSPACE</div>
+    <a href="#overview" class="nav-link active">◫ <span>기업 개요</span></a>
+    <a href="#annual" class="nav-link">▥ <span>연간 실적</span></a>
+    <a href="#quarterly" class="nav-link">▤ <span>분기 실적</span></a>
+    <a href="#balance" class="nav-link">◈ <span>재무건전성</span></a>
+    <a href="#accounts" class="nav-link">≡ <span>DART 원문 계정</span></a>
+    <div class="side-bottom"><div class="data-mark"><span class="pulse"></span> OpenDART · 공식 공시</div><p>소스: 금융감독원 전자공시시스템<br/>와이씨 · KOSDAQ 232140<br/>고유번호 01109539</p></div>
+  </aside>
+  <main>
+   <header class="top-bar"><div class="breadcrumbs">산업분석 <span>/</span> 반도체 검사장비 <span>/</span> <strong>와이씨</strong></div><div class="top-right"><span id="updateTime">데이터 대기 중</span><span class="user-circle">YC</span></div></header>
+   <div class="content">
+    <section id="overview" class="hero">
+     <div><div class="eyebrow"><span class="small-dot"></span> KOSDAQ : 232140 · 반도체 검사장비</div><h1>와이씨 <span>Financial Overview</span></h1><p>공시 데이터를 기반으로 기업 실적과 재무 구조를 추적하는 리서치 워크스페이스</p></div>
+     <div class="tools"><div class="toggle" aria-label="재무제표 구분"><button data-fs="CFS" class="selected">연결</button><button data-fs="OFS">별도</button></div><button class="action-btn" id="refreshBtn">↻ 새로고침</button></div>
+    </section>
+    <div class="notice" id="notice" role="status"><span class="notice-icon">●</span><div><strong>데이터 연결 확인 중</strong><p>DART에서 재무제표를 가져오고 있습니다.</p></div></div>
+    <div id="dashboard" hidden>
+     <div class="section-intro"><div><span class="section-kicker">OVERVIEW</span><h2>핵심 재무 지표</h2></div><div id="baseLabel" class="base-label"></div></div>
+     <div class="kpi-grid" id="kpis"></div>
+     <section class="panel" id="annual"><div class="panel-header"><div><div class="section-kicker">PERFORMANCE</div><h2>연간 실적 추이 <span>2021–2025</span></h2></div><div class="metric-buttons" id="metricButtons"><button data-metric="revenue" class="active">매출액</button><button data-metric="operatingProfit">영업이익</button><button data-metric="netIncome">순이익</button><button data-metric="cfo">영업CF</button><button data-metric="fcf">FCF</button></div></div><div class="chart-body"><div class="chart-title" id="chartTitle"></div><div id="annualChart" class="chart" role="img" aria-label="연간 재무 실적 차트"></div></div><div class="table-wrap"><table id="annualTable"></table></div></section>
+     <div class="two-col">
+       <section class="panel" id="quarterly"><div class="panel-header"><div><div class="section-kicker">QUARTERLY</div><h2>2026년 분기 실적</h2></div><span class="tag">누적치 → 당분기 환산</span></div><div id="quarterChart" class="small-chart"></div><div class="table-wrap"><table id="quarterTable"></table></div><p class="foot-note">손익·현금흐름 계정은 이전 분기 누적치를 차감해 계산합니다. 아직 공시되지 않은 분기는 표시하지 않습니다.</p></section>
+       <section class="panel" id="balance"><div class="panel-header"><div><div class="section-kicker">BALANCE SHEET</div><h2>재무건전성</h2></div><span class="tag" id="balanceLabel">기말 기준</span></div><div id="balanceDetails"></div><div class="statement-note" id="balanceNote"></div></section>
+     </div>
+     <section class="panel insight-panel"><div class="panel-header"><div><div class="section-kicker">RULE-BASED ANALYSIS</div><h2>실적 분석 메모</h2></div><span class="tag">공시 수치 자동 해석</span></div><div id="insights" class="insights"></div><div class="caution">이 메모는 수치 변화에 대한 규칙 기반 요약이며, 사업보고서의 수주잔고·고객사·장비 세대교체·일회성 손익을 별도 검증해야 합니다. AI가 작성한 투자 의견은 아닙니다.</div></section>
+     <section class="panel" id="accounts"><div class="panel-header"><div><div class="section-kicker">SOURCE DATA</div><h2>DART 원문 계정</h2></div><div class="accounts-control"><select id="sourcePeriod" aria-label="보고 기간"><option value="latest">최신 공시</option><option value="annual">2025 사업보고서</option></select><select id="stmtType" aria-label="재무제표"><option value="ALL">전체</option><option value="IS">손익계산서</option><option value="CIS">포괄손익계산서</option><option value="BS">재무상태표</option><option value="CF">현금흐름표</option></select></div></div><div class="account-search"><input id="accountSearch" placeholder="계정과목 검색 (예: 매출액, 유형자산)" aria-label="계정과목 검색"/><span id="accountCount"></span></div><div class="table-wrap raw-table"><table id="accountTable"></table></div><div class="source-footer" id="sourceFooter"></div></section>
+     <section class="download-panel"><div><div class="section-kicker">EXPORT</div><h2>분석 자료 내보내기</h2><p>엑셀에서 편집하거나 ChatGPT에 업로드해 추가 산업·기업 분석을 진행할 수 있습니다.</p></div><div class="download-actions"><button class="download-btn primary" id="exportJson">↧ 분석용 JSON</button><button class="download-btn" id="exportAnnual">↧ 연간 CSV</button><button class="download-btn" id="exportQuarter">↧ 분기 CSV</button></div></section>
+    </div>
+    <footer><span>YC RESEARCH / OPEN DART</span><span>단위: 억원 · 비율: % · 과거 공시 데이터이며 실시간 주가는 제공하지 않습니다.</span></footer>
+   </div>
+  </main>
+ </div>
+ <script src="/app.js" defer></script>
+</body>
+</html>
